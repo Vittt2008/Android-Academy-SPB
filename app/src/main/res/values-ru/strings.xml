@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Погодка</string>
+    <string name="error_title">Воу! Охлади траханье</string>
+    <string name="error_message">Ошибка. Потрачено</string>
+    <string name="error_positive_button_text">OK</string>
+    <string name="weather">погода</string>
+    <string name="degree">градус</string>
+    <string name="rain_snow">ОСАДКИ</string>
+    <string name="humidity">ВЛАЖНОСТЬ</string>
+</resources>

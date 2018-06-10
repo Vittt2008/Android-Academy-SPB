@@ -5,5 +5,6 @@
     <string name="error_positive_button_text">OK</string>
     <string name="weather">weather</string>
     <string name="degree">degree</string>
-    <string name="dark_sky_message"><a href="https://darksky.net/poweredby">Powered by Dark Sky</a></string>
+    <string name="rain_snow">RAIN/SNOW</string>
+    <string name="humidity">HUMIDITY</string>
 </resources>
