@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Android-Academy-SPB</string>
+    <string name="app_name">Stormy</string>
+    <string name="error_title">Oops! Halt Crud!</string>
+    <string name="error_message">This is an error. Please try again!</string>
+    <string name="error_positive_button_text">OK</string>
+    <string name="weather">weather</string>
+    <string name="degree">degree</string>
+    <string name="dark_sky_message"><a href="https://darksky.net/poweredby">Powered by Dark Sky</a></string>
 </resources>
