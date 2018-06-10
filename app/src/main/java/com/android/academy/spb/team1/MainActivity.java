@@ -98,8 +98,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (locationManager.getBestProvider(new Criteria(), true) != null) {
-            lastKnownLocation = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), true)
-            );
+            lastKnownLocation = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), true));
         }
 
         String forecastURL = String.format(
