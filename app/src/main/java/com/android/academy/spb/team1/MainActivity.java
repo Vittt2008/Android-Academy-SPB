@@ -98,8 +98,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (locationManager.getBestProvider(new Criteria(), true) != null) {
-            lastKnownLocation = locationManager.getLastKnownLocation(
-                    locationManager.getBestProvider(new Criteria(), true)
+            lastKnownLocation = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), true)
             );
         }
 
@@ -130,13 +129,13 @@ public class MainActivity extends AppCompatActivity {
                         throw new IOException("Empty response body");
                     }
 
-                    String cityName = LOCALE == "ru" ? "Санкт-Петербург" : "St.Petersburg";
+                    String cityName = getString(R.string.city_default);
+
                     if (lastKnownLocation != null) {
                         Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
                         List<Address> addresses;
                         try {
-                            addresses = gcd.getFromLocation(lastKnownLocation.getLatitude(),
-                                    lastKnownLocation.getLongitude(), 1);
+                            addresses = gcd.getFromLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), 1);
                             if (addresses.size() > 0) {
                                 System.out.println(addresses.get(0).getLocality());
                                 cityName = addresses.get(0).getLocality();
