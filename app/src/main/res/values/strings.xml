@@ -7,6 +7,7 @@
     <string name="degree">degree</string>
     <string name="rain_snow">RAIN/SNOW</string>
     <string name="humidity">HUMIDITY</string>
+    <string name="city_default">St.Petersburg</string>
 
     <string name="hello_message"> У вас нет городов, перейдите к добавлению</string>
     <string name="pick_item">Способ добавления</string>

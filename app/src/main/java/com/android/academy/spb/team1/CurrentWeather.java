@@ -62,7 +62,7 @@ public class CurrentWeather {
     }
 
     public String getFormattedTime() {
-        SimpleDateFormat formatter = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
         formatter.setTimeZone(TimeZone.getTimeZone(timezone));
         return formatter.format(new Date(time * 1000));
     }
