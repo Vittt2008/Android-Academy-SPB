@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String API_KEY = "111b4406c7757474f9e4ba2bee689f93";
     public static final double LATITUDE = 59.9059;
     public static final double LONGITUDE = 30.5130;
+    public static final String LOCALE = Locale.getDefault().getLanguage();
 
     private final OkHttpClient client = new OkHttpClient();
 
@@ -63,13 +64,10 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        TextView darkSkyLabel = findViewById(R.id.darkSkyAttribution);
-        darkSkyLabel.setMovementMethod(LinkMovementMethod.getInstance());
-
         String forecastURL = String.format(
                 Locale.US,
-                "https://api.darksky.net/forecast/%s/%f,%f",
-                API_KEY, LATITUDE, LONGITUDE
+                "https://api.darksky.net/forecast/%s/%f,%f?lang=%s&units=si",
+                API_KEY, LATITUDE, LONGITUDE, LOCALE
         );
 
         Request request = new Request.Builder()

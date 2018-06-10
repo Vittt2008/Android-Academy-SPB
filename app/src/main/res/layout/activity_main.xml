@@ -46,7 +46,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="@{`At ` + String.valueOf(weather.formattedTime) + ` it will be`}"
+            android:text="@{String.valueOf(weather.formattedTime)}"
             android:textColor="@color/half_white"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/temperatureValue"
@@ -102,7 +102,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:paddingTop="15dp"
-            android:text="HUMIDITY"
+            android:text="@string/humidity"
             android:textColor="@color/half_white"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -131,7 +131,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             android:paddingTop="15dp"
-            android:text="RAIN/SNOW"
+            android:text="@string/rain_snow"
             android:textColor="@color/half_white"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -167,20 +167,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/precipValue"
             tools:text="Good view of the sun to everybody" />
-
-        <TextView
-            android:id="@+id/darkSkyAttribution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="@string/dark_sky_message"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="Powered by Dark Sky" />
 
         <ImageView
             android:id="@+id/refreshImageView"
