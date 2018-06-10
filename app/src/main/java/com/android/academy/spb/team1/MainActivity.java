@@ -37,11 +37,11 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String TAG = MainActivity.class.getSimpleName();
-    public static final String API_KEY = "111b4406c7757474f9e4ba2bee689f93";
-    private static int PERMISSION_REQUEST_CODE;
-    public static double LATITUDE = 59.9059;
-    public static double LONGITUDE = 30.5130;
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String API_KEY = "111b4406c7757474f9e4ba2bee689f93";
+    private static final int PERMISSION_REQUEST_CODE = 1;
+    private static final double LATITUDE = 59.9059;
+    private static final double LONGITUDE = 30.5130;
 
     public static final String LOCALE = Locale.getDefault().getLanguage();
 
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        iconImageView = findViewById(R.id.iconImageView);
         getForecast();
     }
 
@@ -77,8 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getForecast() {
-        final ActivityMainBinding binding = DataBindingUtil.setContentView(MainActivity.this,
-                R.layout.activity_main);
+        final ActivityMainBinding binding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
 
         if (!isNetworkAvailable()) {
             alertUserAboutError();
@@ -87,14 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{
-                            Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION
-                    },
-                    PERMISSION_REQUEST_CODE);
+        if (checkLocationPermission()) {
+            requestLocation();
         }
 
         if (locationManager.getBestProvider(new Criteria(), true) != null) {
@@ -161,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            iconImageView = findViewById(R.id.iconImageView);
                             Integer iconId = currentWeather.getIconId();
                             if (iconId != null && iconImageView != null) {
                                 iconImageView.setImageDrawable(getResources().getDrawable(iconId));
@@ -175,6 +168,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private boolean checkLocationPermission() {
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestLocation() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_CODE);
     }
 
     private CurrentWeather getCurrentDetails(String jsonAsString) throws IOException {
