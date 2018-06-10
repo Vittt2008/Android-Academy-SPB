@@ -28,6 +28,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -41,10 +43,37 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView iconImageView;
 
+    public CityResult.AddressComponent component;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getForecast();
+        getCity("59.92,30.31");
+    }
+
+    private void getCity(String latlng)
+    {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://maps.googleapis.com/maps/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GetCity service = retrofit.create(GetCity.class);
+        service.getCity(latlng).enqueue(new retrofit2.Callback<CityResult>() {
+            @Override
+            public void onResponse(retrofit2.Call<CityResult> call, retrofit2.Response<CityResult> response) {
+                CityResult cityResult = response.body();
+                for (CityResult.PlaceInfo placeInfo : cityResult.getResults()) {
+                    if (placeInfo.getTypes().contains("locality")&&placeInfo.getTypes().contains("political"))
+                        component = placeInfo.getComponents().get(0);
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<CityResult> call, Throwable t) {
+
+            }
+        });
     }
 
 //     private final LocationListener locationListener = new LocationListener() {
@@ -164,4 +193,5 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Refreshing...", Toast.LENGTH_LONG).show();
         getForecast();
     }
+
 }
