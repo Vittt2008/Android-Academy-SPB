@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background">
+
+<TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:fontFamily="@font/arkhip_font"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        android:textColor="#223968"
+        android:gravity="center_vertical"
+        android:text="@string/hello_message"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonAdd"
+        android:layout_gravity="center|center_horizontal"
+        android:layout_marginBottom="50dp"
+        android:background="#133170"
+        android:padding="20dp"
+        android:textColor="#ccc"
+        android:text="Добавить город"
+        android:fontFamily="@font/arkhip_font"
+        />
+</LinearLayout>
