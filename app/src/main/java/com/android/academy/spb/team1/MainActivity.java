@@ -97,9 +97,11 @@ public class MainActivity extends AppCompatActivity {
                     PERMISSION_REQUEST_CODE);
         }
 
-        lastKnownLocation = locationManager.getLastKnownLocation(
-                locationManager.getBestProvider(new Criteria(), true)
-        );
+        if (locationManager.getBestProvider(new Criteria(), true) != null) {
+            lastKnownLocation = locationManager.getLastKnownLocation(
+                    locationManager.getBestProvider(new Criteria(), true)
+            );
+        }
 
         String forecastURL = String.format(
                 Locale.US,
@@ -128,18 +130,20 @@ public class MainActivity extends AppCompatActivity {
                         throw new IOException("Empty response body");
                     }
 
-                    String cityName = null;
-                    Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
-                    List<Address> addresses;
-                    try {
-                        addresses = gcd.getFromLocation(lastKnownLocation.getLatitude(),
-                                lastKnownLocation.getLongitude(), 1);
-                        if (addresses.size() > 0) {
-                            System.out.println(addresses.get(0).getLocality());
-                            cityName = addresses.get(0).getLocality();
+                    String cityName = LOCALE == "ru" ? "Санкт-Петербург" : "St.Petersburg";
+                    if (lastKnownLocation != null) {
+                        Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
+                        List<Address> addresses;
+                        try {
+                            addresses = gcd.getFromLocation(lastKnownLocation.getLatitude(),
+                                    lastKnownLocation.getLongitude(), 1);
+                            if (addresses.size() > 0) {
+                                System.out.println(addresses.get(0).getLocality());
+                                cityName = addresses.get(0).getLocality();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
 
                     currentWeather = getCurrentDetails(responseBody.string());
@@ -156,11 +160,17 @@ public class MainActivity extends AppCompatActivity {
                             currentWeather.getTimezone()
                     ));
 
-                    iconImageView = findViewById(R.id.iconImageView);
-                    Integer iconId = currentWeather.getIconId();
-                    if (iconId != null && iconImageView != null) {
-                        iconImageView.setImageDrawable(getResources().getDrawable(iconId));
-                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            iconImageView = findViewById(R.id.iconImageView);
+                            Integer iconId = currentWeather.getIconId();
+                            if (iconId != null && iconImageView != null) {
+                                iconImageView.setImageDrawable(getResources().getDrawable(iconId));
+                            }
+                        }
+                    });
+
 
                 } catch (IOException e) {
                     alertUserAboutError();
